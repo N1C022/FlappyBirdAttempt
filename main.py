@@ -125,7 +125,9 @@ async def main():
                 pipe_img = random.choice(im_list)
                 bg = random.choice([bg1, bg2])
 
-
+        clock.tick(FPS)
+        pygame.display.update()
+        await asyncio.sleep(0)
 
     pygame.quit()
 
