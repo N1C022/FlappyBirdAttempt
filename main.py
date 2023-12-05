@@ -74,7 +74,18 @@ async def main():
                     top = Pipe(win, pipe_img, height, 1)
                     bottom = Pipe(win, pipe_img, height, -1)
                     pipe_group.add(top)
-  
+                    pipe_group.add(bottom)
+                    last_pipe = next_pipe
+
+            pipe_group.update(speed)
+            base.update(speed)	
+            bobby.update()
+            score_img.update(score)
+
+            if pygame.sprite.spritecollide(bobby, pipe_group, False) or bobby.rect.top <= 0:
+                game_started = False
+                bobby.alive = False
+                bobby.theta = bobby.vel * -2
 
             if bobby.rect.bottom >= display_height:
                 speed = 0
@@ -114,9 +125,7 @@ async def main():
                 pipe_img = random.choice(im_list)
                 bg = random.choice([bg1, bg2])
 
-        clock.tick(FPS)
-        pygame.display.update()
-        await asyncio.sleep(0)
+
 
     pygame.quit()
 
